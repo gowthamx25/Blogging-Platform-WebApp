@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>📝 Blogs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      width: 100%;
+      max-width: 600px;
+    }
+    h1 {
+      text-align: center;
+    }
+    #blogList div {
+      background: #fafafa;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    #logoutBtn, #createBtn {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    #logoutBtn {
+      background: #cc4444;
+      color: white;
+    }
+    #logoutBtn:hover {
+      background: #aa3333;
+    }
+    #createBtn {
+      background: #1f3449;
+      color: white;
+      float: right;
+    }
+    #createBtn:hover {
+      background: #30475e;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📝 All Blogs</h1>
+    <button id="logoutBtn">Logout</button>
+    <button id="createBtn">Create New Blog</button>
+    <div id="blogList">Loading blogs...</div>
+  </div>
+
+  <script>
+    const apiBase = "http://localhost:5000/api";
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      window.location.href = "index.html";
+    }
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("token");
+      window.location.href = "index.html";
+    });
+
+    document.getElementById("createBtn").addEventListener("click", () => {
+      window.location.href = "create.html";
+    });
+
+    async function loadBlogs() {
+      const res = await fetch(`${apiBase}/blogs`);
+      if (!res.ok) {
+        document.getElementById("blogList").textContent = "Failed to load blogs.";
+        return;
+      }
+      const blogs = await res.json();
+      const blogList = document.getElementById("blogList");
+      if (blogs.length === 0) {
+        blogList.textContent = "No blogs found.";
+        return;
+      }
+      blogList.innerHTML = blogs.map(blog => `
+        <div>
+          <h3>${blog.title}</h3>
+          <p>${blog.content}</p>
+          <small>By: ${blog.author?.name || "Unknown"}</small>
+        </div>
+      `).join("");
+    }
+
+    loadBlogs();
+  </script>
+</body>
+</html>

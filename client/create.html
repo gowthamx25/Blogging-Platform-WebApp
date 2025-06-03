@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>📝 Create Blog</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      width: 100%;
+      max-width: 600px;
+    }
+    h1 {
+      text-align: center;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    button {
+      background: #1f3449;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #30475e;
+    }
+    .response {
+      font-weight: bold;
+      margin-top: 5px;
+      text-align: center;
+    }
+    #backBtn {
+      background: #555;
+      margin-bottom: 20px;
+    }
+    #backBtn:hover {
+      background: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📝 Create a Blog</h1>
+    <button id="backBtn">← Back to Blogs</button>
+    <form id="blogForm">
+      <input type="text" id="blogTitle" placeholder="Blog Title" required />
+      <textarea id="blogContent" placeholder="Blog Content" rows="6" required></textarea>
+      <button type="submit">Post Blog</button>
+      <div class="response" id="blogMsg"></div>
+    </form>
+  </div>
+
+  <script>
+    const apiBase = "http://localhost:5000/api";
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      window.location.href = "index.html";
+    }
+
+    document.getElementById("backBtn").addEventListener("click", () => {
+      window.location.href = "blog.html";
+    });
+
+    document.getElementById("blogForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const title = document.getElementById("blogTitle").value;
+      const content = document.getElementById("blogContent").value;
+
+      const res = await fetch(`${apiBase}/blogs`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ title, content }),
+      });
+
+      const data = await res.json();
+      const blogMsg = document.getElementById("blogMsg");
+
+      if (res.ok) {
+        blogMsg.style.color = "green";
+        blogMsg.textContent = data.message || "Blog posted!";
+        document.getElementById("blogForm").reset();
+      } else {
+        blogMsg.style.color = "red";
+        blogMsg.textContent = data.message || "Failed to post blog.";
+      }
+    });
+  </script>
+</body>
+</html>
