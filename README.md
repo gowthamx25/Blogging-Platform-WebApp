@@ -1,38 +1,57 @@
-# ✍️ Blogging Platform
-A simple blogging platform that allows users to create, view, and manage blog posts using a clean and user-friendly interface.
+# 📰 Blogging Platform – Full Stack Web App
+A full-stack **Blogging Platform** that allows users to create, read, and manage blog posts using a modern client–server architecture.
 ---
 
-## 📌 Project Overview
-This project demonstrates the fundamentals of web development by building a basic blogging system where users can:
-- Write blog posts
-- Display posts dynamically
-- Practice frontend structuring and logic
+## 🚀 Project Overview
+This project is a full-stack web application built to understand:
+- Frontend–backend separation
+- REST API communication
+- CRUD operations
+- Real-world project structure
 ---
 
-## 🚀 Features
-✔ Create blog posts  
-✔ Display multiple posts  
-✔ Simple and clean UI  
-✔ Beginner-friendly structure  
----
-
-## 🛠 Tech Stack
+## 🧱 Tech Stack
+### Frontend
 - HTML
 - CSS
 - JavaScript
+### Backend
+- Node.js
+- Express.js
+### Tools
+- npm
+- Git & GitHub
 ---
 
-## ▶️ How to Run
-1. Clone the repository:
-git clone https://github.com/gowthamx25/blogging-platform.git
-2. Open `index.html` in your browser.
-No additional setup required 🚀
+## ⚙️ How to Run the Project
+
+1️⃣ Clone the Repository
+git clone https://github.com/gowthamx25/Blogging-Platform-WebApp.git
+cd Blogging-Platform-WebApp
+
+2️⃣ Setup Backend
+cd server
+npm install
+npm start
+Backend runs on:http://localhost:5000
+
+3️⃣ Setup Frontend
+cd client
+npm install
+npm start
+Frontend runs on:http://localhost:3000
+---
+✨ Features
+✔ Create blog posts
+✔ View all blog posts
+✔ Delete posts
+✔ Client–server architecture
+✔ Clean folder separation
 ---
 
-## 🔮 Future Enhancements
-- User authentication
-- Edit and delete blog posts
-- Store posts using localStorage or database
-- Rich text editor
-- Backend integration
----
+🔮 Future Enhancements
+User authentication (JWT)
+Edit blog posts
+Database integration (MongoDB)
+Rich text editor
+Deployment (Render / Vercel)
