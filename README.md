@@ -40,14 +40,13 @@ cd client
 npm install
 npm start
 Frontend runs on:http://localhost:3000
----
+
 ✨ Features
 ✔ Create blog posts
 ✔ View all blog posts
 ✔ Delete posts
 ✔ Client–server architecture
 ✔ Clean folder separation
----
 
 🔮 Future Enhancements
 User authentication (JWT)
